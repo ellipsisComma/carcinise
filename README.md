@@ -6,11 +6,7 @@ A bookmarklet that carcinises the page. I briefly went slightly insane while wor
 
 ## Installation
 
-Create a new bookmark on your toolbar and set the address/URL to this code (this is also the content of `carcinise.min.js`):
-
-```javascript
-javascript:(()=>{let e=`🦀`,t=`<text x="50%" y=".9em" font-size="9" text-anchor="middle">${e}</text>`,r=`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">${t}</svg>`)}`,a=`<svg viewBox="0 0 10 10">${t}</svg>`,s=()=>.25>Math.random();if(!document.getElementById("crab-style")){let c=document.head.appendChild(document.createElement("style"));c.id="crab-style",c.innerHTML=`.carcinised-bg{background:url("${r}") center no-repeat!important; background-size:contain!important;}`}function i(t){return t.replaceAll(/\d+|\p{Emoji}|(?!<[\p{L}])([\p{L}]+?)(?![\p{L}])/gmu,t=>s()?e:t)}function o(e){switch("none"!==getComputedStyle(e).getPropertyValue("background-image")&&e.classList.add("carcinised-bg"),e.tagName){case"INPUT":case"TEXTAREA":["value","placeholder"].forEach(t=>e[t]=i(e[t]));break;case"IMG":e.src=e.srcset=r,e.alt=i(e.alt);break;case"PICTURE":e.querySelectorAll("source").forEach(e=>e.src=e.srcset=r);break;case"VIDEO":e.poster=r;break;case"svg":e.innerHTML=t,e.querySelector("text").setAttribute("font-size",.9*parseInt(Math.max(e.getAttribute("width"),e.getAttribute("height"),e.getAttribute("viewBox").split(/\s+/)[2],e.getAttribute("viewBox").split(/\s+/)[3])));break;case"IFRAME":e.outerHTML=a}}function n(e){[...e.childNodes].forEach(e=>{if(void 0!==e)switch(e.nodeType){case 3:e.textContent=i(e.textContent);break;case 1:s()&&o(e);case 9:case 11:e.hasChildNodes()&&n(e)}})}n(document.body),document.title=i(document.title),document.querySelectorAll(`[rel~="icon"],[href$=".ico"]`).forEach(e=>e.href=r)})()
-```
+Create a new bookmark on your toolbar and set the address/URL to the content of [`carcinise.min.js`](./carcinise.min.js):
 
 ## Effects
 
@@ -22,6 +18,8 @@ Carcinise currently affects:
 * video poster images
 * favicons
 * iframes
+
+It currently reads the light DOM and open shadow DOMs.
 
 ## To-do
 

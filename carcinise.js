@@ -16,6 +16,8 @@ javascript: (() => {
 	}
 
 	function carciniseElementProperties(node) {
+		if (node.shadowRoot) carcinise(node.shadowRoot);
+
 		if (getComputedStyle(node).getPropertyValue(`background-image`) !== `none`) node.classList.add(`carcinised-bg`);
 		switch (node.tagName) {
 		case `INPUT`:
