@@ -6,7 +6,7 @@ A bookmarklet that carcinises the page. I briefly went slightly insane while wor
 
 ## Installation
 
-Create a new bookmark on your toolbar and set the address/URL to the content of [`carcinise.min.js`](./carcinise.min.js):
+Create a new bookmark on your toolbar and set the address/URL to the content of [`carcinise.min.js`](./carcinise.min.js).
 
 ## Effects
 
