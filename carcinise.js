@@ -1,14 +1,17 @@
 javascript: (() => {
 	const crab = `🦀`;
 	const crabImgText = `<text x="50%" y=".9em" font-size="9" text-anchor="middle">${crab}</text>`;
-	const crabImg = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">${crabImgText}</svg>`)}`;
+	const crabImg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10">${crabImgText}</svg>`;
+	const crabCursor = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 10 10">${crabImgText}</svg>`;
+	const crabImgUrl = `data:image/svg+xml,${encodeURIComponent(crabImg)}`;
+	const crabCursorUrl = `data:image/svg+xml,${encodeURIComponent(crabCursor)}`;
 	const crabFrame = `<svg viewBox="0 0 10 10">${crabImgText}</svg>`;
 	const check = () => Math.random() < 0.25;
 
 	if (!document.getElementById(`crab-style`)) {
 		const style = document.head.appendChild(document.createElement(`style`));
 		style.id = `crab-style`;
-		style.innerHTML = `.carcinised-bg {background: url("${crabImg}") center no-repeat !important; background-size: contain !important;}`;
+		style.innerHTML = `.carcinised-bg {background: url("${crabImgUrl}") center no-repeat !important; background-size: contain !important;}`;
 	}
 
 	function carciniseStr(string) {
@@ -18,6 +21,8 @@ javascript: (() => {
 	function carciniseElementProperties(node) {
 		if (node.shadowRoot) carcinise(node.shadowRoot);
 
+		if (check()) node.style.cursor = `url("${crabCursorUrl}"), auto`;
+
 		if (getComputedStyle(node).getPropertyValue(`background-image`) !== `none`) node.classList.add(`carcinised-bg`);
 		switch (node.tagName) {
 		case `INPUT`:
@@ -25,14 +30,14 @@ javascript: (() => {
 			[`value`, `placeholder`].forEach(attr => node[attr] = carciniseStr(node[attr]));
 			break;
 		case `IMG`:
-			node.src = node.srcset = crabImg;
+			node.src = node.srcset = crabImgUrl;
 			node.alt = carciniseStr(node.alt);
 			break;
 		case `PICTURE`:
-			node.querySelectorAll(`source`).forEach(source => source.src = source.srcset = crabImg);
+			node.querySelectorAll(`source`).forEach(source => source.src = source.srcset = crabImgUrl);
 			break;
 		case `VIDEO`:
-			node.poster = crabImg;
+			node.poster = crabImgUrl;
 			break;
 		case `svg`:
 			node.innerHTML = crabImgText;
@@ -64,5 +69,5 @@ javascript: (() => {
 	carcinise(document.body);
 	document.title = carciniseStr(document.title);
 
-	document.querySelectorAll(`[rel~="icon"], [href$=".ico"]`).forEach(icon => icon.href = crabImg);
+	document.querySelectorAll(`[rel~="icon"], [href$=".ico"]`).forEach(icon => icon.href = crabImgUrl);
 })()
