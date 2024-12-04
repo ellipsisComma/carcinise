@@ -6,6 +6,7 @@ javascript: (() => {
 	const crabImgUrl = `data:image/svg+xml,${encodeURIComponent(crabImg)}`;
 	const crabCursorUrl = `data:image/svg+xml,${encodeURIComponent(crabCursor)}`;
 	const crabFrame = `<svg viewBox="0 0 10 10">${crabImgText}</svg>`;
+	const excludedElements = new Set([`STYLE`, `SCRIPT`]);
 	const check = () => Math.random() < 0.25;
 
 	if (!document.getElementById(`crab-style`)) {
@@ -54,7 +55,7 @@ javascript: (() => {
 			if (typeof node === `undefined`) return;
 			switch (node.nodeType) {
 			case 3:
-				node.textContent = carciniseStr(node.textContent);
+				if (!excludedElements.has(node.parentNode.tagName)) node.textContent = carciniseStr(node.textContent);
 				break;
 			case 1:
 				if (check()) carciniseElementProperties(node);

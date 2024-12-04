@@ -16,6 +16,7 @@ Carcinise currently affects:
 * images (in `<img>`, `<picture>`, and `<svg>`)
 * background-images (i.e. elements with the `background-image` CSS property in their computed styles)
 * video poster images
+* cursor
 * favicons
 * iframes
 
@@ -23,6 +24,9 @@ It currently reads the light DOM and open shadow DOMs.
 
 ## To-do
 
+- [X] carcinise cursor
+- [ ] improve favicon replacement to affect all sites
+- [X] do not carcinise inline scripts and styles
 - [ ] use the speech synthesis browser API to replace audio elements with clickable widgets that read the crab emoji out loud
 - [ ] as above, but replacing videos with CSS-animated crab emojis
 - [ ] improving background-image replacement and, if possible, applying it to `<svg>` elements after removing contents
